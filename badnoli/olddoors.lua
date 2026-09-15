@@ -402,6 +402,7 @@ local PlayAgainButton = GameGroupBox:AddButton({
 local RoomsGroupBox = Tabs.Main:AddLeftGroupbox("Rooms / Entities")
 
 local DestroyPuzzlesActive = nil
+local DestroyPuzzlesValue = nil
 
 RoomsGroupBox:AddToggle("DestroyPuzzles", {
 	Text = "Destroy Puzzle Doors",
@@ -417,9 +418,24 @@ RoomsGroupBox:AddToggle("DestroyPuzzles", {
 			DestroyPuzzlesActive = true 
 			while task.wait(0.1) and DestroyPuzzlesActive == true do
 				local LatestRoom = game.ReplicatedStorage.GameData.LatestRoom.Value
-				if not workspace.CurrentRooms[LatestRoom]:WaitForChild("Gate") or workspace.CurrentRooms[LatestRoom].Assets:WaitForChild("Paintings"):WaitForChild("MovingDoor") then return end
-				workspace.CurrentRooms[LatestRoom]:WaitForChild("Gate"):Destroy()
-				workspace.CurrentRooms[LatestRoom].Assets:WaitForChild("Paintings"):WaitForChild("MovingDoor"):Destroy()
+				if workspace.CurrentRooms[LatestRoom]:WaitForChild("Gate") then
+					DestroyPuzzlesValue = "Gate"
+					print("gate set")
+				end
+				if workspace.CurrentRooms[LatestRoom].Assets:WaitForChild("Paintings"):WaitForChild("MovingDoor") then
+					DestroyPuzzlesValue = "MovingDoor"
+					print("movingdoor set")
+				end
+				if DestroyPuzzlesValue == "Gate" then
+					workspace.CurrentRooms[LatestRoom]:WaitForChild("Gate"):Destroy()
+					DestroyPuzzlesValue == nil
+					print("destroyed gate")
+				end
+				if DestroyPuzzlesValue == "MovingDoor" then
+					workspace.CurrentRooms[LatestRoom].Assets:WaitForChild("Paintings"):WaitForChild("MovingDoor"):Destroy()
+					DestroyPuzzlesValue == nil
+					print("destroyed movingdoor")
+				end
 			end
 		else
 			DestroyPuzzlesActive = false
@@ -429,7 +445,7 @@ RoomsGroupBox:AddToggle("DestroyPuzzles", {
 
 RoomsGroupBox:AddDivider()
 
-DestroySeekTriggerActive = true 
+DestroySeekTriggerActive = nil
 	
 RoomsGroupBox:AddToggle("DestroySeekTrigger", {
 	Text = "Destroy Seek Trigger",

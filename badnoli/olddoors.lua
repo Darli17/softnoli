@@ -432,7 +432,7 @@ RoomsGroupBox:AddToggle("DestroyPuzzles", {
 
 local PreRunShopGroupBox = Tabs.Main:AddLeftGroupbox("PreRun Shop")
 local AllItemsButton = PreRunShopGroupBox:AddButton({
-	Text = "Enable Visibility for all secret items",
+	Text = "Enable Pre Run Items",
 	Func = function()
 		for i,v in ipairs(game.Players.LocalPlayer.PlayerGui.MainUI.ItemShop.Items:GetDescendants()) do
 			if v:IsA("TextButton") then

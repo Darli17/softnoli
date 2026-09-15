@@ -399,10 +399,9 @@ local PlayAgainButton = GameGroupBox:AddButton({
 	Risky = true, -- Makes the text red (the color can be changed using Library.Scheme.Red) (Default value = false)
 })
 
-local RoomsGroupBox = Tabs.Main:AddLeftGroupbox("Rooms / Entities")
+local RoomsGroupBox = Tabs.Main:AddLeftGroupbox("Rooms")
 
 local DestroyPuzzlesActive = nil
-local DestroyPuzzlesValue = nil
 
 RoomsGroupBox:AddToggle("DestroyPuzzles", {
 	Text = "Destroy Puzzle Doors",
@@ -416,25 +415,11 @@ RoomsGroupBox:AddToggle("DestroyPuzzles", {
 	Callback = function(Value)
 		if Value == true then
 			DestroyPuzzlesActive = true 
-			while task.wait(0.1) and DestroyPuzzlesActive == true do
-				local LatestRoom = game.ReplicatedStorage.GameData.LatestRoom.Value
-				if workspace.CurrentRooms[LatestRoom]:WaitForChild("Gate") then
-					DestroyPuzzlesValue = "Gate"
-					print("gate set")
-				end
-				if workspace.CurrentRooms[LatestRoom].Assets:WaitForChild("Paintings"):WaitForChild("MovingDoor") then
-					DestroyPuzzlesValue = "MovingDoor"
-					print("movingdoor set")
-				end
-				if DestroyPuzzlesValue == "Gate" then
-					workspace.CurrentRooms[LatestRoom]:WaitForChild("Gate"):Destroy()
-					DestroyPuzzlesValue == nil
-					print("destroyed gate")
-				end
-				if DestroyPuzzlesValue == "MovingDoor" then
-					workspace.CurrentRooms[LatestRoom].Assets:WaitForChild("Paintings"):WaitForChild("MovingDoor"):Destroy()
-					DestroyPuzzlesValue == nil
-					print("destroyed movingdoor")
+			while task.wait(1) and DestroyPuzzlesActive == true do
+				for i,v in ipairs(game.Workspace.CurrentRooms:GetDescendants()) do
+						if v:IsA("Model") and v.Name == "Gate" then
+								v:Destroy()
+						end
 				end
 			end
 		else
@@ -442,8 +427,6 @@ RoomsGroupBox:AddToggle("DestroyPuzzles", {
 		end
 	end,
 })
-
-RoomsGroupBox:AddDivider()
 
 DestroySeekTriggerActive = nil
 	
@@ -459,10 +442,12 @@ RoomsGroupBox:AddToggle("DestroySeekTrigger", {
 	Callback = function(Value)
 		if Value == true then
 			DestroySeekTriggerActive = true 
-			while task.wait(0.1) and DestroySeekTriggerActive == true do
-				local LatestRoom = game.ReplicatedStorage.GameData.LatestRoom.Value
-				if not workspace.CurrentRooms[LatestRoom]:WaitForChild("TriggerEventCollision") then return end
-				workspace.CurrentRooms[LatestRoom]:WaitForChild("TriggerEventCollision"):Destroy()
+			while task.wait(1) and DestroyPuzzlesActive == true do
+				for i,v in ipairs(game.Workspace.CurrentRooms:GetDescendants()) do
+						if v:IsA("Model") and v.Name == "TriggerEventCollision" then
+								v:Destroy()
+						end
+				end
 			end
 		else
 			DestroySeekTriggerActive = false
@@ -470,6 +455,28 @@ RoomsGroupBox:AddToggle("DestroySeekTrigger", {
 	end,
 })
 
+local SkipFigureButton = RoomsGroupBox:AddButton({
+	Text = "Skip Figure [50] Room",
+	Func = function()
+		
+local players = game:GetService("Players")
+local player = players.LocalPlayer
+local character = player.Character
+
+local currentrooms = workspace.CurrentRooms
+local latestroom = game.ReplicatedStorage.GameData.LatestRoom.Value+1
+
+character.HumanoidRootPart.Position = currentrooms[latestroom].Door.Door.Position
+
+	end,
+	DoubleClick = true,
+
+	Tooltip = "skips figure room",
+
+	Disabled = false, -- Will disable the button (true / false)
+	Visible = true, -- Will make the button invisible (true / false)
+	Risky = true, -- Makes the text red (the color can be changed using Library.Scheme.Red) (Default value = false)
+})
 local PreRunShopGroupBox = Tabs.Main:AddLeftGroupbox("PreRun Shop")
 local AllItemsButton = PreRunShopGroupBox:AddButton({
 	Text = "Enable Pre Run Items",

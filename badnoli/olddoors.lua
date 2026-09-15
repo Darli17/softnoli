@@ -399,7 +399,7 @@ local PlayAgainButton = GameGroupBox:AddButton({
 	Risky = true, -- Makes the text red (the color can be changed using Library.Scheme.Red) (Default value = false)
 })
 
-local RoomsGroupBox = Tabs.Main:AddLeftGroupbox("Rooms")
+local RoomsGroupBox = Tabs.Main:AddLeftGroupbox("Rooms / Entities")
 
 local DestroyPuzzlesActive = nil
 
@@ -416,16 +416,40 @@ RoomsGroupBox:AddToggle("DestroyPuzzles", {
 		if Value == true then
 			DestroyPuzzlesActive = true 
 			while task.wait(0.1) and DestroyPuzzlesActive == true do
-					local LatestRoom = game.ReplicatedStorage.GameData.LatestRoom.Value
-					if workspace.CurrentRooms[LatestRoom]:WaitForChild("Gate") then
-						workspace.CurrentRooms[LatestRoom]:WaitForChild("Gate"):Destroy()
-					end
-					if workspace.CurrentRooms[LatestRoom].Assets:WaitForChild("Paintings"):WaitForChild("MovingDoor") then
-						workspace.CurrentRooms[LatestRoom].Assets:WaitForChild("Paintings"):WaitForChild("MovingDoor"):Destroy()
-					end
+				local LatestRoom = game.ReplicatedStorage.GameData.LatestRoom.Value
+				if not workspace.CurrentRooms[LatestRoom]:WaitForChild("Gate") or workspace.CurrentRooms[LatestRoom].Assets:WaitForChild("Paintings"):WaitForChild("MovingDoor") then return end
+				workspace.CurrentRooms[LatestRoom]:WaitForChild("Gate"):Destroy()
+				workspace.CurrentRooms[LatestRoom].Assets:WaitForChild("Paintings"):WaitForChild("MovingDoor"):Destroy()
 			end
 		else
 			DestroyPuzzlesActive = false
+		end
+	end,
+})
+
+RoomsGroupBox:AddDivider()
+
+DestroySeekTriggerActive = true 
+	
+RoomsGroupBox:AddToggle("DestroySeekTrigger", {
+	Text = "Destroy Seek Trigger",
+	Tooltip = "deletes seek escape trigger", -- Information shown when you hover over the toggle
+
+	Default = false, -- Default value (true / false)
+	Disabled = false, -- Will disable the toggle (true / false)
+	Visible = true, -- Will make the toggle invisible (true / false)
+	Risky = false, -- Makes the text red (the color can be changed using Library.Scheme.Red) (Default value = false)
+
+	Callback = function(Value)
+		if Value == true then
+			DestroySeekTriggerActive = true 
+			while task.wait(0.1) and DestroySeekTriggerActive == true do
+				local LatestRoom = game.ReplicatedStorage.GameData.LatestRoom.Value
+				if not workspace.CurrentRooms[LatestRoom]:WaitForChild("TriggerEventCollision") then return end
+				workspace.CurrentRooms[LatestRoom]:WaitForChild("TriggerEventCollision"):Destroy()
+			end
+		else
+			DestroySeekTriggerActive = false
 		end
 	end,
 })

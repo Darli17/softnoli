@@ -15,7 +15,8 @@ instance.main.text.Text = "Identifying the game..."
 
 -- accepted places
 
-if game.PlaceId == 110258689672367 then
+if player.PlayerGui then
+	if game.PlaceId == 110258689672367 then
 		task.wait(0.2)
 		instance.main.text.Text = "The game is determined! Its: DOORS [HOTEL -]"
 		task.wait(1)
@@ -28,6 +29,10 @@ if game.PlaceId == 110258689672367 then
 		instance.main.text.Text = "loadstring Loaded! Good luck with the game!"
 		task.wait(1.3)
 		instance:Destroy()
+	end
+	if game.PlaceId == 537413528 then
+
+	end
 	else
 		task.wait(0.2)
 		instance.main.text.Text = "Use softnoli in Supported Games."

@@ -15,7 +15,7 @@ instance.main.text.Text = "Identifying the game..."
 
 -- accepted places
 
-if game.PlaceId == not 110258689672367 then
+if game.PlaceId == 110258689672367 then
 		task.wait(0.2)
 		instance.main.text.Text = "The game is determined! Its: DOORS [HOTEL -]"
 		task.wait(1)

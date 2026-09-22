@@ -31,7 +31,32 @@ if player.PlayerGui then
 		instance:Destroy()
 	end
 	if game.PlaceId == 537413528 then
+		task.wait(0.2)
+		instance.main.text.Text = "The game is determined! Its: BABFT"
+		task.wait(1)
+		instance.main.text.Text = "Loading BADNOLI loadstring..."
+		instance.main.ImageLabel.Image = "rbxassetid://97249090324248"
 
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Darli17/softnoli/refs/heads/main/badnoli/babft.lua"))()
+
+		task.wait(0.3)
+		instance.main.text.Text = "loadstring Loaded! Good luck with the game!"
+		task.wait(1.3)
+		instance:Destroy()
+	end
+	if game.PlaceId == 1930863474 then
+		task.wait(0.2)
+		instance.main.text.Text = "The game is determined! Its: BABFT [EASTER EVENT 2021]"
+		task.wait(1)
+		instance.main.text.Text = "Loading BADNOLI loadstring..."
+		instance.main.ImageLabel.Image = "rbxassetid://97249090324248"
+
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Darli17/softnoli/refs/heads/main/badnoli/babfteasterevent.lua"))()
+
+		task.wait(0.3)
+		instance.main.text.Text = "loadstring Loaded! Good luck with the game!"
+		task.wait(1.3)
+		instance:Destroy()
 	end
 	else
 		task.wait(0.2)

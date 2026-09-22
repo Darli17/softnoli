@@ -345,8 +345,8 @@ AutoGroupBox:AddButton({
 local SecretsGroupBox = Tabs.Main:AddRightGroupbox("Secrets", "boxes")
 
 SecretsGroupBox:AddButton({
-    Text = "2021 Easter Event Place",
-		Tooltip = "TP to 2021 Easter Event Place. Item can be getted: yes",
+    Text = "2021 Easter Event Bossfight",
+		Tooltip = "TP to 2021 Easter Event Bossfight. Item can be getted: yes",
     Func = function()
 	local TeleportService = game:GetService("TeleportService")
 	local placeId = 1930863474

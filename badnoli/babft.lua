@@ -234,7 +234,7 @@ PlayerGroupBox:AddSlider("FlySlider", {
     Text = "FlySpeed:",
     Default = 15,
     Min = 5,
-    Max = 200,
+    Max = 500,
     Rounding = 1,
     Compact = false,
 		

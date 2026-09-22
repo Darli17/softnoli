@@ -357,7 +357,8 @@ SecretsGroupBox:AddButton({
 })
 SecretsGroupBox:AddButton({
     Text = "2024 Spring Update Build Place",
-		Tooltip = "TP to 2024 Version Of Build a Boat. Item can be getted: yes",
+	Tooltip = "TP to 2024 Version Of Build a Boat. Item can be getted: yes [VERSION OF BUILD CAN BE CHANGED!]",
+	Risky = true,
     Func = function()
 	local TeleportService = game:GetService("TeleportService")
 	local placeId = 1930866268
